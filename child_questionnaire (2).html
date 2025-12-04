@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>きみのための しつもんひょう | Tools. 合理的配慮ガイドブック</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #F5C518;
+            --primary-dark: #E5B508;
+            --secondary: #4A90D9;
+            --secondary-light: #5BA0E9;
+            --accent: #FF6B9D;
+            --green: #4CAF50;
+            --orange: #FF9800;
+            --purple: #9C27B0;
+            --bg: #FFFEF7;
+            --bg-subtle: #FAF9F4;
+            --text: #2D2D2D;
+            --text-light: #666666;
+            --card-bg: #FFFFFF;
+            --border: #E8E4D9;
+            --success: #4CAF50;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* Ruby styling */
+        ruby {
+            ruby-align: center;
+        }
+
+        rt {
+            font-size: 0.5em;
+            color: var(--text-light);
+        }
+
+        /* ==================== */
+        /* MOBILE STYLES (Default) */
+        /* ==================== */
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #FFD54F 100%);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .progress-container {
+            background: var(--border);
+            height: 8px;
+            width: 100%;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .progress-text {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: var(--card-bg);
+        }
+
+        .main {
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Chapter Header */
+        .chapter-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: white;
+            padding: 1rem 1.2rem;
+            border-radius: 16px 16px 0 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .chapter-header.dream {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8A80 100%);
+        }
+
+        .chapter-header.worry {
+            background: linear-gradient(135deg, var(--secondary) 0%, #64B5F6 100%);
+        }
+
+        .chapter-icon {
+            font-size: 1.8rem;
+        }
+
+        .questions-wrapper {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        /* Question Card */
+        .question-card {
+            padding: 1.2rem;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .question-card:last-child {
+            border-bottom: none;
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: var(--text);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #FFF9E6;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .question-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: #F5F5F5;
+            border-radius: 8px;
+        }
+
+        .question-hint::before {
+            content: "💡 ";
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            resize: vertical;
+            transition: all 0.2s;
+            background: var(--bg);
+            line-height: 1.8;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: var(--card-bg);
+            box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.2);
+        }
+
+        textarea::placeholder {
+            color: #BBBBBB;
+            font-size: 1rem;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-prev {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: white;
+        }
+
+        .btn-complete {
+            background: linear-gradient(135deg, var(--green) 0%, #66BB6A 100%);
+            color: white;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--accent) 0%, #FF8A80 100%);
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Intro Screen */
+        .intro-screen {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .intro-character {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .intro-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .intro-subtitle {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .intro-cards {
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: left;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            border: 2px solid var(--border);
+        }
+
+        .intro-card h2 {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .intro-card h2.pink { color: #FF6B9D; }
+        .intro-card h2.blue { color: var(--secondary); }
+
+        .intro-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #FFD54F 100%);
+            color: var(--text);
+            border: none;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(245, 197, 24, 0.4);
+        }
+
+        .start-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Complete Screen */
+        .complete-screen {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .complete-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: celebrate 1s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .complete-screen h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--green);
+        }
+
+        .complete-screen p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .complete-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-only { display: block; }
+        .pc-only { display: none; }
+
+        /* Screen */
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        /* Question dots */
+        .question-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.8rem;
+            background: var(--card-bg);
+            flex-wrap: wrap;
+        }
+
+        .question-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        .question-dot.active {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.2);
+        }
+
+        .question-dot.completed {
+            background: var(--green);
+            color: white;
+        }
+
+        /* Sidebar (hidden on mobile) */
+        .sidebar { display: none; }
+        .app-container { display: block; }
+        .main-content { margin-left: 0; }
+
+        /* ==================== */
+        /* PC STYLES */
+        /* ==================== */
+        @media (min-width: 900px) {
+            .app-container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                width: 320px;
+                background: linear-gradient(180deg, var(--primary) 0%, #FFD54F 100%);
+                padding: 2rem;
+                position: fixed;
+                height: 100vh;
+                overflow-y: auto;
+            }
+
+            .sidebar-header {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .sidebar-logo {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 0.3rem;
+            }
+
+            .sidebar-subtitle {
+                font-size: 0.9rem;
+                color: var(--text);
+                opacity: 0.8;
+            }
+
+            .sidebar-character {
+                font-size: 4rem;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .sidebar-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid rgba(0,0,0,0.1);
+                text-align: center;
+            }
+
+            .chapter-nav {
+                margin-bottom: 1rem;
+            }
+
+            .chapter-nav-title {
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .question-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .question-nav-item {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .question-nav-item:hover {
+                background: rgba(255,255,255,0.8);
+            }
+
+            .question-nav-item.active {
+                background: var(--card-bg);
+                box-shadow: var(--shadow);
+                transform: scale(1.1);
+            }
+
+            .question-nav-item.completed {
+                background: var(--green);
+                color: white;
+            }
+
+            .sidebar-progress {
+                margin-top: auto;
+                padding-top: 1.5rem;
+                border-top: 2px solid rgba(0,0,0,0.1);
+            }
+
+            .progress-label {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+            }
+
+            .progress-bar-container {
+                background: rgba(0,0,0,0.1);
+                border-radius: 10px;
+                height: 12px;
+                overflow: hidden;
+            }
+
+            .sidebar .progress-bar {
+                background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+                height: 100%;
+                width: 0%;
+                transition: width 0.3s ease;
+                border-radius: 10px;
+            }
+
+            .header, .progress-container, .progress-text, .question-indicator {
+                display: none;
+            }
+
+            .main-content {
+                flex: 1;
+                margin-left: 320px;
+                padding: 3rem;
+                max-width: 900px;
+            }
+
+            .main {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .intro-character { font-size: 6rem; }
+            .intro-title { font-size: 2rem; }
+
+            .intro-cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .start-btn {
+                max-width: 400px;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .start-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(245, 197, 24, 0.5);
+            }
+
+            .chapter-header {
+                padding: 1.2rem 1.5rem;
+                border-radius: 20px 20px 0 0;
+                font-size: 1.3rem;
+                margin-top: 0;
+            }
+
+            .question-card {
+                padding: 1.5rem 2rem;
+            }
+
+            .question-text {
+                font-size: 1.15rem;
+                padding: 1rem 1.2rem;
+            }
+
+            textarea {
+                min-height: 140px;
+                font-size: 1.1rem;
+            }
+
+            .nav-buttons {
+                justify-content: space-between;
+            }
+
+            .btn {
+                flex: none;
+                padding: 1rem 2rem;
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+
+            .complete-icon { font-size: 6rem; }
+            .complete-screen h2 { font-size: 2rem; }
+
+            .complete-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .mobile-only { display: none; }
+            .pc-only { display: block; }
+        }
+
+        @media (min-width: 900px) and (max-width: 1100px) {
+            .sidebar { width: 280px; }
+            .main-content { margin-left: 280px; padding: 2rem; }
+        }
+
+        /* Print */
+        @media print {
+            .sidebar, .header, .progress-container, .progress-text,
+            .question-indicator, .nav-buttons, .no-print { display: none !important; }
+            .main-content { margin-left: 0; padding: 0; max-width: 100%; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (PC) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">Tools.</div>
+                <p class="sidebar-subtitle"><ruby>合理的配慮<rt>ごうりてきはいりょ</rt></ruby>ガイドブック</p>
+            </div>
+            
+            <div class="sidebar-character">🌟</div>
+            <h2 class="sidebar-title">きみのための<br>しつもんひょう</h2>
+            
+            <div class="chapter-nav">
+                <div class="chapter-nav-title">💖 チャプター1：きみのゆめ</div>
+                <div class="question-nav" id="nav-chapter1"></div>
+            </div>
+            
+            <div class="chapter-nav">
+                <div class="chapter-nav-title">💙 チャプター2：きみのなやみ</div>
+                <div class="question-nav" id="nav-chapter2"></div>
+            </div>
+
+            <div class="sidebar-progress">
+                <div class="progress-label">
+                    <span>すすみ<ruby>具合<rt>ぐあい</rt></ruby></span>
+                    <span id="progress-count-pc">0 / 10</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar-pc"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <!-- Mobile Header -->
+            <div class="header">
+                <h1>🌟 きみのための しつもんひょう</h1>
+                <p>Tools. <ruby>合理的配慮<rt>ごうりてきはいりょ</rt></ruby>ガイドブック</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar-mobile"></div>
+            </div>
+            <div class="progress-text" id="progress-text-mobile">0 / 10 こたえたよ</div>
+            <div class="question-indicator" id="question-indicator"></div>
+
+            <!-- Intro -->
+            <div id="intro-screen" class="screen active">
+                <div class="main intro-screen">
+                    <div class="intro-character">🌈</div>
+                    <h1 class="intro-title">きみのための<br>しつもんひょう</h1>
+                    <p class="intro-subtitle"><ruby>全部<rt>ぜんぶ</rt></ruby>で10<ruby>問<rt>もん</rt></ruby>あるよ！</p>
+                    
+                    <div class="intro-cards">
+                        <div class="intro-card">
+                            <h2 class="pink">💖 チャプター1：きみのゆめ</h2>
+                            <p><ruby>好<rt>す</rt></ruby>きなことや、とくいなこと、<ruby>将来<rt>しょうらい</rt></ruby>のゆめについて<ruby>教<rt>おし</rt></ruby>えてね！（3<ruby>問<rt>もん</rt></ruby>）</p>
+                        </div>
+                        <div class="intro-card">
+                            <h2 class="blue">💙 チャプター2：きみのなやみ</h2>
+                            <p><ruby>学校<rt>がっこう</rt></ruby>で「ちょっとむずかしいな」「こまっているな」と<ruby>思<rt>おも</rt></ruby>うことを<ruby>教<rt>おし</rt></ruby>えてね！（7<ruby>問<rt>もん</rt></ruby>）</p>
+                        </div>
+                    </div>
+
+                    <button class="start-btn" onclick="startQuestionnaire()">
+                        はじめる ▶
+                    </button>
+                </div>
+            </div>
+
+            <!-- Questions -->
+            <div id="questionnaire-screen" class="screen">
+                <div class="main" id="questions-container"></div>
+            </div>
+
+            <!-- Complete -->
+            <div id="complete-screen" class="screen">
+                <div class="main complete-screen">
+                    <div class="complete-icon">🎉</div>
+                    <h2>おつかれさま！</h2>
+                    <p><ruby>全部<rt>ぜんぶ</rt></ruby>こたえてくれて ありがとう！<br>
+                    きみの<ruby>気持<rt>きも</rt></ruby>ち、ちゃんと<ruby>届<rt>とど</rt></ruby>くよ。</p>
+                    
+                    <div class="complete-actions">
+                        <button class="btn btn-prev" onclick="backToQuestions()">
+                            ← <ruby>見直<rt>みなお</rt></ruby>す
+                        </button>
+                        <button class="btn btn-print mobile-only" onclick="saveAsPDF()">
+                            📄 <ruby>保存<rt>ほぞん</rt></ruby>する
+                        </button>
+                        <button class="btn btn-print pc-only" onclick="printAnswers()">
+                            📄 <ruby>印刷<rt>いんさつ</rt></ruby>する
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                chapter: 1,
+                chapterTitle: "きみのゆめ",
+                chapterIcon: "💖",
+                chapterClass: "dream",
+                questions: [
+                    {
+                        num: 1,
+                        text: "<ruby>時間<rt>じかん</rt></ruby>をわすれて<ruby>夢中<rt>むちゅう</rt></ruby>になれることや、「これなら いくらでも <ruby>続<rt>つづ</rt></ruby>けられる」と<ruby>思<rt>おも</rt></ruby>うことは <ruby>何<rt>なに</rt></ruby>ですか？",
+                        hint: "ゲーム、おえかき、レゴ、<ruby>虫<rt>むし</rt></ruby>をさがす、<ruby>本<rt>ほん</rt></ruby>をよむ... なんでもOK！",
+                    },
+                    {
+                        num: 2,
+                        text: "「<ruby>自分<rt>じぶん</rt></ruby>は これが とくいかもしれない」「<ruby>人<rt>ひと</rt></ruby>より うまくできる」と<ruby>思<rt>おも</rt></ruby>えることは ありますか？",
+                        hint: "<ruby>勉強<rt>べんきょう</rt></ruby>じゃなくても だいじょうぶ！スポーツ、ゲーム、おてつだい、やさしくすることなど",
+                    },
+                    {
+                        num: 3,
+                        text: "<ruby>将来<rt>しょうらい</rt></ruby>、「こんな<ruby>大人<rt>おとな</rt></ruby>になりたい」「こんな<ruby>仕事<rt>しごと</rt></ruby>をしてみたい」という イメージは ありますか？",
+                        hint: "「やさしい<ruby>人<rt>ひと</rt></ruby>」「<ruby>動物<rt>どうぶつ</rt></ruby>にかかわる<ruby>仕事<rt>しごと</rt></ruby>」など、なんとなくでもOK！",
+                    }
+                ]
+            },
+            {
+                chapter: 2,
+                chapterTitle: "きみのなやみ",
+                chapterIcon: "💙",
+                chapterClass: "worry",
+                questions: [
+                    {
+                        num: 4,
+                        text: "<ruby>教室<rt>きょうしつ</rt></ruby>の<ruby>中<rt>なか</rt></ruby>で、「まぶしい」「うるさい」「においが<ruby>気<rt>き</rt></ruby>になる」など、<ruby>体<rt>からだ</rt></ruby>が<ruby>疲<rt>つか</rt></ruby>れてしまう<ruby>場所<rt>ばしょ</rt></ruby>や<ruby>時間<rt>じかん</rt></ruby>は ありますか？",
+                        hint: "たいいくかんのひかり、きゅうしょくのにおい、やすみじかんのさわがしさ など",
+                    },
+                    {
+                        num: 5,
+                        text: "<ruby>先生<rt>せんせい</rt></ruby>の<ruby>話<rt>はなし</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いているとき、<ruby>言葉<rt>ことば</rt></ruby>が<ruby>早<rt>はや</rt></ruby>すぎたり、<ruby>一度<rt>いちど</rt></ruby>にたくさんのことを<ruby>言<rt>い</rt></ruby>われて「わからない」となったりすることは ありますか？",
+                        hint: "せつめいがながいとき、いくつもしじがでるとき など",
+                    },
+                    {
+                        num: 6,
+                        text: "<ruby>教科書<rt>きょうかしょ</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んだり、<ruby>字<rt>じ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いたりするときに、<ruby>文字<rt>もじ</rt></ruby>がゆがんで<ruby>見<rt>み</rt></ruby>えたり、すごく<ruby>時間<rt>じかん</rt></ruby>がかかったりすることは ありますか？",
+                        hint: "ぎょうをとばしてよんじゃう、かくのがおそい、にたもじをまちがえる など",
+                    },
+                    {
+                        num: 7,
+                        text: "じっと<ruby>座<rt>すわ</rt></ruby>っていなければいけない<ruby>時<rt>とき</rt></ruby>に、<ruby>体<rt>からだ</rt></ruby>がムズムズしたり、つい<ruby>動<rt>うご</rt></ruby>きたくなってしまうことは ありますか？",
+                        hint: "じゅぎょうちゅう、ちょうれい、バスのなか など",
+                    },
+                    {
+                        num: 8,
+                        text: "<ruby>休<rt>やす</rt></ruby>み<ruby>時間<rt>じかん</rt></ruby>やグループ<ruby>活動<rt>かつどう</rt></ruby>で、<ruby>友達<rt>ともだち</rt></ruby>の<ruby>輪<rt>わ</rt></ruby>に<ruby>入<rt>はい</rt></ruby>りにくかったり、ルールがわからなくて<ruby>困<rt>こま</rt></ruby>ったりすることは ありますか？",
+                        hint: "なにをはなせばいいかわからない、あそびにはいれない など",
+                    },
+                    {
+                        num: 9,
+                        text: "<ruby>手先<rt>てさき</rt></ruby>を<ruby>使<rt>つか</rt></ruby>うこと（はさみ、<ruby>定規<rt>じょうぎ</rt></ruby>、リコーダーなど）や、<ruby>体育<rt>たいいく</rt></ruby>の<ruby>運動<rt>うんどう</rt></ruby>で「<ruby>自分<rt>じぶん</rt></ruby>は<ruby>不器用<rt>ぶきよう</rt></ruby>だな」と<ruby>感<rt>かん</rt></ruby>じることは ありますか？",
+                        hint: "おりがみ、なわとび、ボールなげ、きがえ など",
+                    },
+                    {
+                        num: 10,
+                        text: "もし<ruby>学校<rt>がっこう</rt></ruby>で<ruby>一<rt>ひと</rt></ruby>つだけ「<ruby>魔法<rt>まほう</rt></ruby>」が<ruby>使<rt>つか</rt></ruby>えるとしたら、どんなことを<ruby>変<rt>か</rt></ruby>えたいですか？",
+                        hint: "テストの<ruby>時間<rt>じかん</rt></ruby>をながくする、<ruby>静<rt>しず</rt></ruby>かな<ruby>部屋<rt>へや</rt></ruby>で<ruby>勉強<rt>べんきょう</rt></ruby>する、タブレットを<ruby>使<rt>つか</rt></ruby>う など",
+                    }
+                ]
+            }
+        ];
+
+        let answers = {};
+        let currentQuestionIndex = 0;
+
+        function initAnswers() {
+            for (let i = 1; i <= 10; i++) {
+                answers[i] = localStorage.getItem(`answer_child_${i}`) || '';
+            }
+        }
+
+        function saveAnswer(num, value) {
+            answers[num] = value;
+            localStorage.setItem(`answer_child_${num}`, value);
+            updateProgress();
+            renderQuestionNav();
+            renderQuestionIndicator();
+        }
+
+        function updateProgress() {
+            const total = 10;
+            const filled = Object.values(answers).filter(a => a.trim() !== '').length;
+            const percentage = (filled / total) * 100;
+
+            const mobileBar = document.getElementById('progress-bar-mobile');
+            const mobileText = document.getElementById('progress-text-mobile');
+            if (mobileBar) mobileBar.style.width = `${percentage}%`;
+            if (mobileText) mobileText.textContent = `${filled} / ${total} こたえたよ`;
+
+            const pcBar = document.getElementById('progress-bar-pc');
+            const pcCount = document.getElementById('progress-count-pc');
+            if (pcBar) pcBar.style.width = `${percentage}%`;
+            if (pcCount) pcCount.textContent = `${filled} / ${total}`;
+        }
+
+        function renderQuestionNav() {
+            const nav1 = document.getElementById('nav-chapter1');
+            const nav2 = document.getElementById('nav-chapter2');
+            if (!nav1 || !nav2) return;
+
+            nav1.innerHTML = [1, 2, 3].map(num => {
+                const isActive = currentQuestionIndex === num - 1;
+                const isCompleted = answers[num]?.trim() !== '';
+                return `<div class="question-nav-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" 
+                             onclick="goToQuestion(${num - 1})">${num}</div>`;
+            }).join('');
+
+            nav2.innerHTML = [4, 5, 6, 7, 8, 9, 10].map(num => {
+                const isActive = currentQuestionIndex === num - 1;
+                const isCompleted = answers[num]?.trim() !== '';
+                return `<div class="question-nav-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" 
+                             onclick="goToQuestion(${num - 1})">${num}</div>`;
+            }).join('');
+        }
+
+        function renderQuestionIndicator() {
+            const container = document.getElementById('question-indicator');
+            if (!container) return;
+
+            container.innerHTML = Array.from({length: 10}, (_, i) => {
+                const num = i + 1;
+                const isActive = currentQuestionIndex === i;
+                const isCompleted = answers[num]?.trim() !== '';
+                return `<div class="question-dot ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}">${num}</div>`;
+            }).join('');
+        }
+
+        function getAllQuestions() {
+            return questions.flatMap(ch => ch.questions);
+        }
+
+        function getCurrentChapter() {
+            return currentQuestionIndex < 3 ? questions[0] : questions[1];
+        }
+
+        function goToQuestion(index) {
+            if (document.getElementById('intro-screen').classList.contains('active')) {
+                startQuestionnaire();
+            }
+            if (document.getElementById('complete-screen').classList.contains('active')) {
+                document.getElementById('complete-screen').classList.remove('active');
+                document.getElementById('questionnaire-screen').classList.add('active');
+            }
+            currentQuestionIndex = index;
+            renderQuestion();
+            renderQuestionNav();
+            renderQuestionIndicator();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questions-container');
+            const allQ = getAllQuestions();
+            const q = allQ[currentQuestionIndex];
+            const chapter = getCurrentChapter();
+
+            const html = `
+                <div class="chapter-header ${chapter.chapterClass}">
+                    <span class="chapter-icon">${chapter.chapterIcon}</span>
+                    <span>チャプター${chapter.chapter}：${chapter.chapterTitle}</span>
+                </div>
+                <div class="questions-wrapper">
+                    <div class="question-card">
+                        <div class="question-number">
+                            <span>Q${q.num}</span>
+                        </div>
+                        <div class="question-text">${q.text}</div>
+                        <div class="question-hint">${q.hint}</div>
+                        <textarea 
+                            id="answer-${q.num}"
+                            placeholder="ここに かいてね..."
+                            oninput="saveAnswer(${q.num}, this.value)"
+                        >${answers[q.num] || ''}</textarea>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-prev" onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''}>
+                        ← もどる
+                    </button>
+                    <button class="btn ${currentQuestionIndex === 9 ? 'btn-complete' : 'btn-next'}" onclick="nextQuestion()">
+                        ${currentQuestionIndex === 9 ? 'かんりょう ✓' : 'つぎへ →'}
+                    </button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+            window.scrollTo(0, 0);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+                renderQuestionNav();
+                renderQuestionIndicator();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < 9) {
+                currentQuestionIndex++;
+                renderQuestion();
+                renderQuestionNav();
+                renderQuestionIndicator();
+            } else {
+                showCompleteScreen();
+            }
+        }
+
+        function startQuestionnaire() {
+            document.getElementById('intro-screen').classList.remove('active');
+            document.getElementById('questionnaire-screen').classList.add('active');
+            renderQuestion();
+            updateProgress();
+            renderQuestionNav();
+            renderQuestionIndicator();
+        }
+
+        function showCompleteScreen() {
+            document.getElementById('questionnaire-screen').classList.remove('active');
+            document.getElementById('complete-screen').classList.add('active');
+        }
+
+        function backToQuestions() {
+            document.getElementById('complete-screen').classList.remove('active');
+            document.getElementById('questionnaire-screen').classList.add('active');
+        }
+
+        function printAnswers() {
+            const printWindow = window.open('', '_blank');
+            let html = generatePrintHTML();
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
+
+        function saveAsPDF() {
+            const pdfWindow = window.open('', '_blank');
+            let html = generatePrintHTML(true);
+            pdfWindow.document.write(html);
+            pdfWindow.document.close();
+        }
+
+        function generatePrintHTML(showInstructions = false) {
+            let html = `
+                <!DOCTYPE html>
+                <html lang="ja">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>きみのための しつもんひょう - かいとう</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body { 
+                            font-family: 'Zen Maru Gothic', sans-serif; 
+                            padding: 20px;
+                            font-size: 14px;
+                            line-height: 1.6;
+                            background: #fff;
+                        }
+                        ruby { ruby-align: center; }
+                        rt { font-size: 0.5em; color: #666; }
+                        ${showInstructions ? `
+                        .save-instructions {
+                            background: #FFF9E6;
+                            border: 2px solid #F5C518;
+                            border-radius: 12px;
+                            padding: 20px;
+                            margin-bottom: 25px;
+                            text-align: center;
+                        }
+                        .save-instructions h2 { font-size: 16px; margin-bottom: 10px; color: #333; }
+                        .save-instructions p { font-size: 14px; color: #666; margin-bottom: 8px; }
+                        .save-instructions .steps {
+                            text-align: left;
+                            background: #fff;
+                            padding: 15px;
+                            border-radius: 8px;
+                            margin-top: 10px;
+                        }
+                        .save-instructions .steps p { margin-bottom: 5px; }
+                        ` : ''}
+                        .print-header {
+                            text-align: center;
+                            margin-bottom: 20px;
+                            padding-bottom: 15px;
+                            border-bottom: 3px solid #333;
+                        }
+                        .print-header h1 { font-size: 18px; margin-bottom: 5px; }
+                        .print-header p { font-size: 12px; color: #666; }
+                        .print-date { font-size: 11px; color: #999; margin-top: 10px; }
+                        .chapter-header {
+                            color: white;
+                            padding: 10px 15px;
+                            margin-top: 20px;
+                            font-weight: bold;
+                            font-size: 14px;
+                            border-radius: 8px 8px 0 0;
+                        }
+                        .chapter-header.dream { background: #FF6B9D; }
+                        .chapter-header.worry { background: #4A90D9; }
+                        .questions-wrapper {
+                            border: 1px solid #ddd;
+                            border-top: none;
+                            border-radius: 0 0 8px 8px;
+                        }
+                        .question-card {
+                            padding: 15px;
+                            border-bottom: 1px dashed #ddd;
+                        }
+                        .question-card:last-child { border-bottom: none; }
+                        .question-number {
+                            display: inline-block;
+                            background: #F5C518;
+                            padding: 3px 10px;
+                            border-radius: 12px;
+                            font-size: 11px;
+                            font-weight: bold;
+                            margin-bottom: 8px;
+                        }
+                        .question-text {
+                            font-size: 13px;
+                            font-weight: 500;
+                            margin-bottom: 10px;
+                            padding: 8px;
+                            background: #FFF9E6;
+                            border-radius: 8px;
+                            border-left: 3px solid #F5C518;
+                        }
+                        .answer-box {
+                            background: #f9f9f9;
+                            border: 1px solid #ddd;
+                            padding: 12px;
+                            min-height: 40px;
+                            font-size: 13px;
+                            white-space: pre-wrap;
+                            border-radius: 6px;
+                        }
+                        .empty-answer { color: #999; font-style: italic; }
+                        @media print {
+                            .save-instructions { display: none; }
+                            body { padding: 10px; }
+                            .chapter-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                            .question-number { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                        }
+                    </style>
+                </head>
+                <body>
+            `;
+
+            if (showInstructions) {
+                html += `
+                    <div class="save-instructions">
+                        <h2>📄 PDFで<ruby>保存<rt>ほぞん</rt></ruby>するほうほう</h2>
+                        <div class="steps">
+                            <p><strong>iPhone（Safari）のばあい：</strong></p>
+                            <p>① <ruby>画面<rt>がめん</rt></ruby><ruby>下<rt>した</rt></ruby>の「<ruby>共有<rt>きょうゆう</rt></ruby>」ボタン（□に↑）をタップ</p>
+                            <p>② 「プリント」をえらぶ</p>
+                            <p>③ プレビューを2<ruby>本<rt>ほん</rt></ruby><ruby>指<rt>ゆび</rt></ruby>でひろげる</p>
+                            <p>④ <ruby>右上<rt>みぎうえ</rt></ruby>の「<ruby>共有<rt>きょうゆう</rt></ruby>」→「ファイルに<ruby>保存<rt>ほぞん</rt></ruby>」</p>
+                            <p style="margin-top: 10px;"><strong>Android（Chrome）のばあい：</strong></p>
+                            <p>① <ruby>右上<rt>みぎうえ</rt></ruby>の「︙」メニューをタップ</p>
+                            <p>② 「<ruby>共有<rt>きょうゆう</rt></ruby>」→「<ruby>印刷<rt>いんさつ</rt></ruby>」をえらぶ</p>
+                            <p>③ プリンターを「PDF<ruby>形式<rt>けいしき</rt></ruby>で<ruby>保存<rt>ほぞん</rt></ruby>」にへんこう</p>
+                            <p>④ 「<ruby>保存<rt>ほぞん</rt></ruby>」をタップ</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="print-header">
+                    <h1>🌟 きみのための しつもんひょう</h1>
+                    <p>Tools. <ruby>合理的配慮<rt>ごうりてきはいりょ</rt></ruby>ガイドブック 2025</p>
+                    <p class="print-date"><ruby>記入日<rt>きにゅうび</rt></ruby>: ${new Date().toLocaleDateString('ja-JP')}</p>
+                </div>
+            `;
+
+            questions.forEach(chapter => {
+                html += `<div class="chapter-header ${chapter.chapterClass}">${chapter.chapterIcon} チャプター${chapter.chapter}：${chapter.chapterTitle}</div><div class="questions-wrapper">`;
+                chapter.questions.forEach(q => {
+                    const answer = answers[q.num] || '';
+                    html += `
+                        <div class="question-card">
+                            <span class="question-number">Q${q.num}</span>
+                            <div class="question-text">${q.text}</div>
+                            <div class="answer-box ${!answer ? 'empty-answer' : ''}">${answer || '（まだ かいてないよ）'}</div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            });
+
+            html += `</body></html>`;
+            return html;
+        }
+
+        // Initialize
+        initAnswers();
+        renderQuestionNav();
+        updateProgress();
+    </script>
+</body>
+</html>
